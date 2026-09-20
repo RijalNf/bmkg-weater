@@ -1,0 +1,12 @@
+# GCP Key (jangan di-upload!)
+gcp_key.json
+*.json
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Logs
+logs/
+*.log
