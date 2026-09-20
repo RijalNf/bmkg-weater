@@ -1,0 +1,26 @@
+name: Daily BMKG Weather ETL
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # Jalan tiap hari jam 2 pagi UTC (9 pagi WIB)
+  workflow_dispatch: # Biar bisa di-test manual
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run ETL script
+        env:
+          GCP_KEY: ${{ secrets.GCP_KEY }}
+        run: python etl_bmkg.py
